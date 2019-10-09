@@ -1,4 +1,4 @@
-<view>
+<view class="container">
     <image class="top-theme" src="{{themeA.entrance_img}}"></image>
     <swiper class="swiper" indicator-dots
             indicator-active-color="#157658"
