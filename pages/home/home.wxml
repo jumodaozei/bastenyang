@@ -16,4 +16,5 @@
                   theme="{{themeE}}"
                   spu-list="{{themeESpu}}"
     ></s-spu-scroll>
+    <image src="{{themeF.entrance_img}}" class="quality"></image>
 </view>

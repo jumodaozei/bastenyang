@@ -35,6 +35,7 @@ Page({
                 themeESpu = data.spu_list.slice(0,8);
             }
         }
+        const themeF = await theme.getHomeLocationF();
 
         const bannerB = await Banner.getHomeLocationB();
         const grid = await Category.getHomeLocationC();
@@ -45,7 +46,8 @@ Page({
             grid,
             activityD,
             themeE,
-            themeESpu
+            themeESpu,
+            themeF
         })
     },
 
