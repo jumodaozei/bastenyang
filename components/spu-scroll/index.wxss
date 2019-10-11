@@ -1,1 +1,4 @@
-/* components/spu-scroll/index.wxss */
+.title{
+    width: 692rpx;
+    height: 90rpx;
+}
