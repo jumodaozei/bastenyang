@@ -1,3 +1,4 @@
+<wxs src="../../wxs/price.wxs" module="p"></wxs>
 <view class="container">
     <image class="img" src="{{data.img}}"></image>
     <view class="content-container">
@@ -7,7 +8,19 @@
                 <l-tag l-class="l-tag" size="super-mini">{{item}}</l-tag>
             </block>
         </view>
-        <l-price></l-price>
-        <text></text>
+        <view class="price-row">
+            <l-price color="#157658"
+                     value-size="28"
+                     unit-size="20"
+                     autofix
+                     value="{{p.mainPrice(data.price,data.discount_price).price}}"></l-price>
+            <l-price wx:if="{{p.slashedPrice(data.price,data.discount_price).display}}"
+                     color="#999999"
+                     l-class="discount-price"
+                     size="26"
+                     deleted
+                     value="{{p.slashedPrice(data.price,data.discount_price).price}}"></l-price>
+        </view>
+        <text class="subtitle">{{data.subtitle}}</text>
     </view>
 </view>
