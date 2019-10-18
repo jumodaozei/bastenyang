@@ -1,1 +1,10 @@
-/* components/spu-preview/index.wxss */
+.img {
+    width: 340rpx;
+    height: 360rpx;
+}
+
+.l-tag {
+    background-color: #DCEBE6 !important;
+    color: #157658 !important;
+    height: 36rpx !important;
+}
