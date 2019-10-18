@@ -3,7 +3,9 @@ Component({
     /**
      * 组件的属性列表
      */
-    properties: {},
+    properties: {
+        data: Object
+    },
 
     /**
      * 组件的初始数据

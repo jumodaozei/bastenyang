@@ -27,11 +27,12 @@ Page({
     },
 
     async initBottomSpuList() {
-        const paging = await SpuPaging.getLatestPaging();
-        const data = paging.getMoreData();
+        const paging = SpuPaging.getLatestPaging();
+        const data = await paging.getMoreData();
         if (!data) {
             return;
         }
+        wx.lin.renderWaterFlow(data.items);
     },
 
     async initAllData() {

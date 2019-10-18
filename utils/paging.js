@@ -8,7 +8,7 @@ class Paging {
     locker = false;
     url;
     moreData = true;
-    accumulator;
+    accumulator = [];
 
     constructor(req, count = 10, start = 0) {
         this.start = start;
