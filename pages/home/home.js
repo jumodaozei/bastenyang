@@ -15,7 +15,8 @@ Page({
         activityD: null,
         themeE: null,
         bannerG:null,
-        themeH:null
+        themeH: null,
+        spuPaging: null
     },
 
     /**
@@ -28,7 +29,19 @@ Page({
 
     async initBottomSpuList() {
         const paging = SpuPaging.getLatestPaging();
+        this.data.spuPaging = paging;
         const data = await paging.getMoreData();
+        if (!data) {
+            return;
+        }
+        wx.lin.renderWaterFlow(data.items);
+    },
+
+    /**
+     * 页面上拉触底事件的处理函数
+     */
+    onReachBottom: async function () {
+        const data = await this.data.spuPaging.getMoreData();
         if (!data) {
             return;
         }
@@ -106,12 +119,6 @@ Page({
 
     },
 
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-
-    },
 
     /**
      * 用户点击右上角分享

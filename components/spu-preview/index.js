@@ -32,5 +32,13 @@ Component({
     /**
      * 组件的方法列表
      */
-    methods: {}
+    methods: {
+        onImgLoad(event) {
+            const {width, height} = event.detail;
+            this.setData({
+                w: 340,
+                h: 340 * height / width
+            });
+        }
+    }
 })
