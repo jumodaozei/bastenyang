@@ -1,4 +1,4 @@
-<l-loadmore show="{{true}}">
+<l-loadmore show="{{true}}" type="{{loadingType}}" end-text="啦啦啦没有啦">
     <view slot="content" class="container">
         <image class="top-theme" src="{{themeA.entrance_img}}"></image>
         <swiper class="swiper" indicator-dots
