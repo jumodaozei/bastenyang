@@ -39,6 +39,13 @@ Component({
                 w: 340,
                 h: 340 * height / width
             });
+        },
+        onItemTap(event) {
+            const pid = event.currentTarget.dataset.pid;
+            //页面跳转
+            wx.navigateTo({
+                url: `/pages/detail/detail?pid=${pid}`
+            })
         }
     }
 })
