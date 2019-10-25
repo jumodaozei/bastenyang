@@ -10,7 +10,7 @@ class FenceGroup {
         this.skuList = spu.sku_list;
     }
 
-    initFences() {
+    initFences1() {
         const martix = this._createMatrix(this.skuList);
         const fences = [];
         let currentJ = -1;//当前列号
@@ -22,7 +22,20 @@ class FenceGroup {
             }
             fences[currentJ].pushValueTitle(element.value);
         })
-        console.log(fences);
+        //console.log(fences);
+    }
+
+    initFences() {
+        const martix = this._createMatrix(this.skuList);
+        const fences = [];
+        const AT = martix.transpose();
+        //console.log(AT);
+        AT.forEach(r => {
+            const fence = new Fence(r);
+            fence.init();
+            fences.push(fence);
+        })
+        //console.log(fences);
     }
 
     _createFence() {
