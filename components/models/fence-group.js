@@ -4,6 +4,7 @@ import {Fence} from "./fence";
 class FenceGroup {
     spu;
     skuList = [];
+    fences = [];
 
     constructor(spu) {
         this.spu = spu;
@@ -14,7 +15,7 @@ class FenceGroup {
         const martix = this._createMatrix(this.skuList);
         const fences = [];
         let currentJ = -1;//当前列号
-        martix.forEach((element, i, j) => {
+        martix.each((element, i, j) => {
             if (currentJ !== j) {
                 //开启了一个新列
                 currentJ = j;
@@ -35,7 +36,8 @@ class FenceGroup {
             fence.init();
             fences.push(fence);
         })
-        //console.log(fences);
+        this.fences = fences;
+        console.log(fences);
     }
 
     _createFence() {

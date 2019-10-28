@@ -13,7 +13,7 @@ class Matrix {
         return this.m[0].length;
     }
 
-    forEach(cb) {
+    each(cb) {
         for (let j = 0; j < this.colsNum; j++) {
             for (let i = 0; i < this.rowsNum; i++) {
                 const element = this.m[i][j];
