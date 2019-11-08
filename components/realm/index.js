@@ -1,6 +1,7 @@
 // components/realm/index.js
 import {FenceGroup} from "../models/fence-group";
 import {Judger} from "../models/judger";
+import {Spu} from "../../model/spu";
 
 Component({
     /**
@@ -15,10 +16,24 @@ Component({
             if (!spu) {
                 return;
             }
+            if (Spu.isNoSpec(spu)) {
+                this.setData({
+                    noSpec: true
+                });
+                this.bindSkuData(spu.sku_list[0]);
+                return;
+            }
             const fenceGroup = new FenceGroup(spu);
             fenceGroup.initFences();
             const judger = new Judger(fenceGroup);
             this.data.judger = judger;
+
+            const defaultSku = fenceGroup.getDefaultSku();
+            if (defaultSku) {
+                this.bindSkuData(defaultSku);
+            } else {
+                this.bindSpuData();
+            }
             this.bindInitData(fenceGroup);
         }
     },
@@ -27,13 +42,40 @@ Component({
      * 组件的初始数据
      */
     data: {
-        judger: Object
+        judger: Object,
+        previewImg: String,
+        title: String,
+        price: Number,
+        discountPrice: Number,
+        stock: Number,
+        noSpec: Boolean
     },
 
     /**
      * 组件的方法列表
      */
     methods: {
+        bindSpuData() {
+            const spu = this.properties.spu;
+            this.setData({
+                previewImg: spu.img,
+                title: spu.title,
+                price: spu.price,
+                discountPrice: spu.discount_price
+            })
+        },
+
+        bindSkuData(sku) {
+            this.setData({
+                previewImg: sku.img,
+                title: sku.title,
+                price: sku.price,
+                discountPrice: sku.discount_price,
+                stock: sku.stock
+            })
+        },
+
+
         bindInitData(fenceGroup) {
             this.setData({
                 fences: fenceGroup.fences

@@ -1,8 +1,17 @@
+import {Cell} from "./cell";
+
 class SkuPending {
     pending = [];//记录用户选择
 
     constructor() {
 
+    }
+
+    init(sku) {
+        for (let i = 0; i < sku.specs.length; i++) {
+            const cell = new Cell(sku.specs[i]);
+            this.insertCell(cell, i);
+        }
     }
 
     insertCell(cell, x) {
