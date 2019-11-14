@@ -17,24 +17,10 @@ Component({
                 return;
             }
             if (Spu.isNoSpec(spu)) {
-                this.setData({
-                    noSpec: true
-                });
-                this.bindSkuData(spu.sku_list[0]);
-                return;
-            }
-            const fenceGroup = new FenceGroup(spu);
-            fenceGroup.initFences();
-            const judger = new Judger(fenceGroup);
-            this.data.judger = judger;
-
-            const defaultSku = fenceGroup.getDefaultSku();
-            if (defaultSku) {
-                this.bindSkuData(defaultSku);
+                this.processNoSpec(spu);
             } else {
-                this.bindSpuData();
+                this.processHasSpec(spu);
             }
-            this.bindInitData(fenceGroup);
         }
     },
 
@@ -55,6 +41,29 @@ Component({
      * 组件的方法列表
      */
     methods: {
+        processNoSpec(spu) {
+            this.setData({
+                noSpec: true
+            });
+            this.bindSkuData(spu.sku_list[0]);
+        },
+
+        processHasSpec(spu) {
+            const fenceGroup = new FenceGroup(spu);
+            fenceGroup.initFences();
+            const judger = new Judger(fenceGroup);
+            this.data.judger = judger;
+
+            const defaultSku = fenceGroup.getDefaultSku();
+            if (defaultSku) {
+                this.bindSkuData(defaultSku);
+            } else {
+                this.bindSpuData();
+            }
+            this.bindTipData();
+            this.bindFenceGroupData(fenceGroup);
+        },
+
         bindSpuData() {
             const spu = this.properties.spu;
             this.setData({
@@ -75,8 +84,14 @@ Component({
             })
         },
 
+        bindTipData() {
+            this.setData({
+                skuIntact: this.data.judger.isSkuIntact()
+            });
+        },
 
-        bindInitData(fenceGroup) {
+
+        bindFenceGroupData(fenceGroup) {
             this.setData({
                 fences: fenceGroup.fences
             })
@@ -89,9 +104,11 @@ Component({
             const y = event.detail.y;
             const judger = this.data.judger;
             judger.judge(cell, x, y);
-            this.setData({
-                fences: judger.fenceGroup.fences
-            });
+            const skuIntact = judger.isSkuIntact();
+            this.bindFenceGroupData(judger.fenceGroup);
+            // this.setData({
+            //     fences: judger.fenceGroup.fences
+            // });
         }
     }
 })
