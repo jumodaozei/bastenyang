@@ -2,6 +2,7 @@
 import {FenceGroup} from "../models/fence-group";
 import {Judger} from "../models/judger";
 import {Spu} from "../../model/spu";
+import {Cell} from "../models/cell";
 
 Component({
     /**
@@ -86,7 +87,9 @@ Component({
 
         bindTipData() {
             this.setData({
-                skuIntact: this.data.judger.isSkuIntact()
+                skuIntact: this.data.judger.isSkuIntact(),
+                currentValues: this.data.judger.getCurrentValues(),
+                missingKeys: this.data.judger.getMissingKeys()
             });
         },
 
@@ -99,12 +102,22 @@ Component({
 
         onCellTap(event) {
             // console.log(event);
-            const cell = event.detail.cell;
+            const data = event.detail.cell;
             const x = event.detail.x;
             const y = event.detail.y;
+
+            const cell = new Cell(data.spec);
+            //因为new cell的时候 构造函数中默认是watting
+            cell.status = data.status;
+
             const judger = this.data.judger;
             judger.judge(cell, x, y);
             const skuIntact = judger.isSkuIntact();
+            if (skuIntact) {
+                const currentSku = judger.getDeterminateSku();
+                this.bindSkuData(currentSku);
+            }
+            this.bindTipData();
             this.bindFenceGroupData(judger.fenceGroup);
             // this.setData({
             //     fences: judger.fenceGroup.fences

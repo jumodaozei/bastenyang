@@ -19,6 +19,17 @@ class Judger {
         return this.skuPending.isIntact();
     }
 
+    getCurrentValues() {
+        return this.skuPending.getCurrentSpecValues();
+    }
+
+    getMissingKeys() {
+        const missingKeysIndex = this.skuPending.getMissingSpecKeysIndex();
+        return missingKeysIndex.map(i => {
+            return this.fenceGroup.fences[i].title;
+        })
+    }
+
     _initSkuPending() {
         const specsLength = this.fenceGroup.fences.length;
         this.skuPending = new SkuPending(specsLength);
@@ -65,6 +76,14 @@ class Judger {
                 //this.fenceGroup.fences[x].cells[y].status = CellStatus.FORBIDDEN;
             }
         });
+    }
+
+
+    //得到一个完整的sku
+    getDeterminateSku() {
+        const code = this.skuPending.getSkuCode();
+        const sku = this.fenceGroup.getSku(code);
+        return sku;
     }
 
     _isInDict(path) {

@@ -1,4 +1,5 @@
 import {Cell} from "./cell";
+import {Joiner} from "../../utils/joiner";
 
 class SkuPending {
     pending = [];//记录用户选择
@@ -13,6 +14,34 @@ class SkuPending {
             const cell = new Cell(sku.specs[i]);
             this.insertCell(cell, i);
         }
+    }
+
+    //规格值
+    getCurrentSpecValues() {
+        const values = this.pending.map(cell => {
+            return cell ? cell.spec.value : null;
+        })
+        return values;
+    }
+
+    //规格名
+    getMissingSpecKeysIndex() {
+        const keysIndex = [];
+        for (let i = 0; i < this.size; i++) {
+            if (!this.pending[i]) {
+                keysIndex.push(i);
+            }
+        }
+        return keysIndex;
+    }
+
+    getSkuCode() {
+        const joiner = new Joiner('#');
+        this.pending.forEach(cell => {
+            const cellCode = cell.getCellCode();
+            joiner.join(cellCode);
+        })
+        return joiner.getStr();
     }
 
     isIntact() {
