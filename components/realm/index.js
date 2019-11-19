@@ -3,6 +3,8 @@ import {FenceGroup} from "../models/fence-group";
 import {Judger} from "../models/judger";
 import {Spu} from "../../model/spu";
 import {Cell} from "../models/cell";
+import {Cart} from "../../model/cart";
+import number from "../../miniprogram_npm/lin-ui/common/async-validator/validator/number";
 
 Component({
     /**
@@ -35,7 +37,8 @@ Component({
         price: Number,
         discountPrice: Number,
         stock: Number,
-        noSpec: Boolean
+        noSpec: Boolean,
+        currentSkuCount: Cart.SKU_MIN_COUNT
     },
 
     /**
@@ -47,6 +50,7 @@ Component({
                 noSpec: true
             });
             this.bindSkuData(spu.sku_list[0]);
+            this.setStockStatus(spu.sku_list[0].stock, this.data.currentSkuCount)
         },
 
         processHasSpec(spu) {
@@ -58,6 +62,7 @@ Component({
             const defaultSku = fenceGroup.getDefaultSku();
             if (defaultSku) {
                 this.bindSkuData(defaultSku);
+                this.setStockStatus(defaultSku.stock, this.data.currentSkuCount)
             } else {
                 this.bindSpuData();
             }
@@ -100,6 +105,26 @@ Component({
             })
         },
 
+        setStockStatus(stock, currentCount) {
+            this.setData({
+                outStock: this.isOutOfStork(stock, currentCount)
+            });
+        },
+
+        isOutOfStork(stock, currentCount) {
+            return stock < currentCount;
+        },
+
+        onSelectCount(event) {
+            const currentCount = event.detail.count;
+            this.data.currentSkuCount = currentCount;
+
+            if (this.data.judger.isSkuIntact()) {
+                const sku = this.data.judger.getDeterminateSku();
+                this.setStockStatus(sku.stock, currentCount)
+            }
+        },
+
         onCellTap(event) {
             // console.log(event);
             const data = event.detail.cell;
@@ -116,6 +141,7 @@ Component({
             if (skuIntact) {
                 const currentSku = judger.getDeterminateSku();
                 this.bindSkuData(currentSku);
+                this.setStockStatus(currentSku.stock, this.data.currentSkuCount)
             }
             this.bindTipData();
             this.bindFenceGroupData(judger.fenceGroup);
