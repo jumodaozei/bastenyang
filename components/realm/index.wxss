@@ -1,7 +1,15 @@
+.out-container {
+    padding: 30rpx 0 0 30rpx;
+    background-color: #ffffff;
+}
+
 .container {
     box-sizing: border-box;
-    padding: 30rpx;
+    /*padding: 30rpx;*/
     background-color: #ffffff;
+    max-height: 1000rpx;
+    min-height: 700rpx;
+    margin-bottom: 100rpx;
 }
 
 .sku-preview {
@@ -63,12 +71,13 @@
 }
 
 .counter-container {
+    width: 690rpx;
     margin-top: 34rpx;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 200rpx;
+    padding-bottom: 100rpx;
 }
 
 .counter-container text {

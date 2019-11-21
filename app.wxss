@@ -2,3 +2,22 @@
 page{
     background-color: #f5f5f5;
 }
+
+@font-face {
+    font-family: 'bastenyang';  /* project id 1517096 */
+    src: url('//at.alicdn.com/t/font_1517096_ygj4dmsgvo.eot');
+    src: url('//at.alicdn.com/t/font_1517096_ygj4dmsgvo.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_1517096_ygj4dmsgvo.woff2') format('woff2'),
+    url('//at.alicdn.com/t/font_1517096_ygj4dmsgvo.woff') format('woff'),
+    url('//at.alicdn.com/t/font_1517096_ygj4dmsgvo.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_1517096_ygj4dmsgvo.svg#bastenyang') format('svg');
+}
+
+.bastenyang {
+    font-family: bastenyang !important;
+    color: #157658 !important;
+}
+
+.l-icon-home:before {
+    content: "\e626"
+}
