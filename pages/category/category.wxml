@@ -1,2 +1,33 @@
-<!--pages/category/category.wxml-->
-<text>pages/category/category.wxml</text>
+<view class="container">
+    <view class="search-container">
+        <l-button
+                width="710"
+                height="60"
+                icon="research"
+                icon-size="24"
+                icon-color="#C4C9D2"
+                l-class="search-btn"
+                bind:lintap="onGotoSearch"
+                shape="square">
+            搜索商品
+        </l-button>
+    </view>
+    <view class="main">
+        <l-segment
+                height="800"
+                item-height="90"
+                even="{{false}}"
+                width="160"
+                l-active-class="segment-item-active"
+                l-inactive-class="segment-item"
+                l-line-class="l-seg-line"
+                placement="left">
+            <l-segment-item key="1" tab="米兰"></l-segment-item>
+            <l-segment-item key="2" tab="国米"></l-segment-item>
+            <l-segment-item key="3" tab="曼抬"></l-segment-item>
+            <l-segment-item key="4" tab="巴傻"></l-segment-item>
+            <l-segment-item key="5" tab="三八"></l-segment-item>
+        </l-segment>
+        <view></view>
+    </view>
+</view>
