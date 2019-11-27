@@ -2,6 +2,7 @@
 import {Spu} from "../../model/spu";
 import boolean from "../../miniprogram_npm/lin-ui/common/async-validator/validator/boolean";
 import {ShoppingWay} from "../../core/enum";
+import {SaleExplain} from "../../model/sale-explain";
 
 Page({
 
@@ -18,8 +19,11 @@ Page({
     onLoad: async function (options) {
         const pid = options.pid;
         const spu = await Spu.getDetail(pid);
+
+        const explain = await SaleExplain.getFiexed();
         this.setData({
-            spu
+            spu,
+            explain
         });
 
     },
@@ -48,6 +52,12 @@ Page({
         wx.switchTab({
             url: '/pages/cart/cart'
         })
+    },
+
+    onSpecChange(event) {
+        this.setData({
+            specs: event.detail
+        });
     },
 
     /**

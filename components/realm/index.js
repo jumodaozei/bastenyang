@@ -25,6 +25,7 @@ Component({
             } else {
                 this.processHasSpec(spu);
             }
+            this.triggerSpecEvent();
         }
     },
 
@@ -69,6 +70,22 @@ Component({
             }
             this.bindTipData();
             this.bindFenceGroupData(fenceGroup);
+        },
+
+        triggerSpecEvent() {
+            const noSpec = Spu.isNoSpec(this.properties.spu);
+            if (noSpec) {
+                this.triggerEvent('specchange', {
+                    noSpec: Spu.isNoSpec(this.properties.spu)
+                });
+            } else {
+                this.triggerEvent('specchange', {
+                    noSpec: Spu.isNoSpec(this.properties.spu),
+                    skuIntact: this.data.judger.isSkuIntact(),
+                    currentValues: this.data.judger.getCurrentValues(),
+                    missingKeys: this.data.judger.getMissingKeys()
+                });
+            }
         },
 
         bindSpuData() {
@@ -149,6 +166,7 @@ Component({
             // this.setData({
             //     fences: judger.fenceGroup.fences
             // });
+            this.triggerSpecEvent();
         }
     }
 })
